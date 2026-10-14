@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>লাভ ক্যালকুলেটর - Love Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 30px 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            text-align: center;
+            border: 2px solid #ffccd5;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        input:focus {
+            border-color: #ff4d6d;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c9184a;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #fff0f3;
+            display: none;
+        }
+
+        .result h2 {
+            font-size: 32px;
+            color: #ff4d6d;
+            margin-bottom: 5px;
+        }
+
+        .result p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* অ্যাড বক্সের স্টাইল */
+        .ad-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>❤️ লাভ ক্যালকুলেটর ❤️</h1>
+        
+        <div class="input-group">
+            <div class="input-box">
+                <label for="firstName">তোমার নামের ১ম অক্ষর</label>
+                <input type="text" id="firstName" maxlength="1" placeholder="A">
+            </div>
+            <div class="input-box">
+                <label for="secondName">সঙ্গীর নামের ১ম অক্ষর</label>
+                <input type="text" id="secondName" maxlength="1" placeholder="B">
+            </div>
+        </div>
+
+        <button onclick="calculateLove()">ভালোবাসার পরিমাপ দেখো</button>
+
+        <div class="result" id="resultArea">
+            <h2 id="percentage">0%</h2>
+            <p id="message"></p>
+        </div>
+
+        <!-- অ্যাড ডিসপ্লে করার জায়গা -->
+        <div class="ad-container" id="adBox">
+            <!-- অ্যাড কোড এখানে জাভাস্ক্রিপ্ট দিয়ে লোড হবে -->
+        </div>
+    </div>
+
+    <script>
+        function calculateLove() {
+            const letter1 = document.getElementById('firstName').value.trim().toUpperCase();
+            const letter2 = document.getElementById('secondName').value.trim().toUpperCase();
+            const resultArea = document.getElementById('resultArea');
+            const percentageElement = document.getElementById('percentage');
+            const messageElement = document.getElementById('message');
+
+            if (letter1 === "" || letter2 === "") {
+                alert("দয়া করে দুটি নামেরই প্রথম অক্ষর দিন!");
+                return;
+            }
+
+            const combinedCode = letter1.charCodeAt(0) + letter2.charCodeAt(0);
+            const lovePercentage = (combinedCode * 7) % 51 + 50;
+
+            percentageElement.innerText = lovePercentage + "%";
+
+            if (lovePercentage >= 85) {
+                messageElement.innerText = "ওয়াও! চমৎকার ও খাঁটি ভালোবাসা! ❤️";
+            } else if (lovePercentage >= 70) {
+                messageElement.innerText = "খুবই সুন্দর সম্পর্ক! 💖";
+            } else {
+                messageElement.innerText = "ভালো সম্পর্ক, একটু যত্ন নিলে আরও সুন্দর হবে! ";
+            }
+
+            resultArea.style.display = "block";
+        }
+
+        // প্রতি ৩ সেকেন্ড পর পর অ্যাড রিফ্রেশ বা পরিবর্তন করার ফাংশন
+        function refreshAd() {
+            const adBox = document.getElementById('adBox');
+            adBox.innerHTML = ""; // আগের অ্যাড মুছে ফেলা
+
+            // অ্যাড অপশন অবজেক্ট তৈরি
+            window.atOptions = {
+                'key' : '85c392afff95e34f23a8d3abdd6e1e3c',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };
+
+            // নতুন স্ক্রিপ্ট ট্যাগ তৈরি করে অ্যাড লোড করা
+            const script1 = document.createElement('script');
+            script1.type = "text/javascript";
+            script1.text = `atOptions = {
+                'key' : '85c392afff95e34f23a8d3abdd6e1e3c',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };`;
+
+            const script2 = document.createElement('script');
+            script2.type = "text/javascript";
+            script2.src = "https://www.highrevenueformat.com/85c392afff95e34f23a8d3abdd6e1e3c/invoke.js";
+
+            adBox.appendChild(script1);
+            adBox.appendChild(script2);
+        }
+
+        // প্রথমবার পেজ লোড হওয়ার সাথে সাথে অ্যাড দেখানো
+        refreshAd();
+
+        // প্রতি ৩ সেকেন্ড (৩০০০ মিলি<bos>9সেকেন্ড) পর পর ফাংশনটি কল করা
+        setInterval(refreshAd, 3000);
+    </script>
+
+</body>
+</html>
